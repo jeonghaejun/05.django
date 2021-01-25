@@ -1,0 +1,12 @@
+{% extends "base_books.html" %}
+
+{% block content %}
+    <h2>Books Management System</h2>
+    <ul>
+        {% for modelname in model_list %}
+        
+        <li><a href="{% url 'books:book_list' %}">{{ modelname }}</a></li>
+        
+        {% endfor %}
+    </ul>
+{% endblock content %}
