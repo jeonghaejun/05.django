@@ -17,10 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.urls import path
-from bookmark.views import BookmarkDV, BookmarkLV
-from mysite.views import HomeView
+from mysite.views import HomeView, UserCreateView, UserCreateDoneTV
 
 urlpatterns = [
+    # 로그인, 로그아웃, 비밀번호 변경 등 담당
+    path('accounts/', include('django.contrib.auth.urls')),
+    # 회원 가입 및 처리
+    path('accounts/register/', UserCreateView.as_view(), name='register'),
+    path('accounts/register/done/', UserCreateDoneTV.as_view(),
+    name='register_done'),
+    
     path('', HomeView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('bookmark/', include('bookmark.urls')),
