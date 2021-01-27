@@ -18,8 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.urls import path
 from bookmark.views import BookmarkDV, BookmarkLV
+from mysite.views import HomeView
 
 urlpatterns = [
+    path('', HomeView.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('bookmark/', include('bookmark.urls')),
     path('blog/', include('blog.urls')),

@@ -26,7 +26,7 @@ SECRET_KEY = '%p(_xq)3d51^9%c%-b*0yva%xevatwj^knx$$1+@!i9b-5-#0%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.4','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['192.168.0.4', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'taggit.apps.TaggitAppConfig',
+    'taggit_templatetags2',
+
     'bookmark.apps.BookmarkConfig',
     'blog.apps.BlogConfig',
 ]
@@ -57,7 +61,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,7 +122,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
