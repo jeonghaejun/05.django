@@ -8,6 +8,10 @@ from django.views.generic import FormView
 from django.db.models import Q
 from django.shortcuts import render
 from blog.forms import PostSearchForm
+from django.views.generic import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from mysite.views import OwnerOnlyMixin
 
 
 # ListView
@@ -71,7 +75,6 @@ class TaggedObjectLV(ListView):
         return context
 
 
-
 #--- FormView
 class SearchFormView(FormView):
     form_class = PostSearchForm
@@ -80,8 +83,8 @@ class SearchFormView(FormView):
     def form_valid(self, form):
         searchWord = form.cleaned_data['search_word']
         post_list = Post.objects.filter(
-            Q(title__icontains=searchWord) | 
-            Q(description__icontains=searchWord) | 
+            Q(title__icontains=searchWord) |
+            Q(description__icontains=searchWord) |
             Q(content__icontains=searchWord)).distinct()
 
         context = {}
@@ -89,3 +92,22 @@ class SearchFormView(FormView):
         context['search_term'] = searchWord
         context['object_list'] = post_list
         return render(self.request, self.template_name, context)
+
+class PostCreateView(LoginRequiredMixin, CreateView):
+    model = Post
+    fields = ['title', 'slug', 'description', 'content', 'tags']
+    initial = {'slug': 'auto-filling-do-not-input'}
+    success_url = reverse_lazy('blog:index')
+    
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+class PostUpdateView(OwnerOnlyMixin, UpdateView):
+    model = Post
+    fields = ['title', 'slug', 'description', 'content', 'tags']
+    success_url = reverse_lazy('blog:index')
+    
+class PostDeleteView(OwnerOnlyMixin, DeleteView) :
+    model = Post
+    success_url = reverse_lazy('blog:index')
