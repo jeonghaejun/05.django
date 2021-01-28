@@ -1,8 +1,9 @@
+from django.http import response
 from django.shortcuts import render
 
 # Create your views here.
 from django.views.generic import ListView, DetailView, TemplateView
-from blog.models import Post
+from blog.models import Post, PostAttachFile
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView, DayArchiveView, TodayArchiveView
 from django.views.generic import FormView
 from django.db.models import Q
@@ -101,7 +102,16 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        return super().form_valid(form)
+
+        response= super().form_valid(form) # Post모델 저장, self.object
+
+        # 업로드 파일 얻기
+        files=self.request.FILES.getlist("files")
+        for file in files:
+            attach_file=PostAttachFile(post=self.object,filename=file.name, size=file.size,content_type=file.content_type,upload_file=file)
+            attach_file.save()
+        return response
+
 
 class PostUpdateView(OwnerOnlyMixin, UpdateView):
     model = Post
