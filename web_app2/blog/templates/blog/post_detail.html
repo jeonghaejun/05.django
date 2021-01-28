@@ -16,14 +16,10 @@
 </p>
 <div>{{ object.modify_dt|date:"j F Y" }}</div>
 <br>
-<div class="text-right">
-    <a href="{% url 'blog:update' post.id %}" class="mr-3">
-    <i class="far fa-edit"></i> 수정</a>
-    <a href="{% url 'blog:delete' post.id %}" class="text-danger mr-3">
-    <i class="fas fa-trash"></i> 삭제</a>
-</div>
+<p>작성자 : {{ object.owner.username }} </p>
+<br>
 <div>
-    {{ object.content|linebreaks }}
+    {{ object.content|safe }}
 </div>
 
 <br>
@@ -37,4 +33,13 @@
     &emsp;<a href="{% url 'blog:tag_cloud' %}">
         <span class="btn btn-info btn-sm">TagCloud</span> </a>
 </div>
+{% if user == object.owner %}
+<div class="text-right">
+    <a href="{% url 'blog:update' post.id %}" class="mr-3">
+        <i class="far fa-edit"></i> 수정</a>
+    <a href="{% url 'blog:delete' post.id %}" class="text-danger mr-3">
+        <i class="fas fa-trash"></i> 삭제</a>
+</div>
+{% endif %}
+
 {% endblock %}

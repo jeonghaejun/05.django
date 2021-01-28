@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
     'widget_tweaks',
+    'tinymce',
 
     'bookmark.apps.BookmarkConfig',
     'blog.apps.BlogConfig',
