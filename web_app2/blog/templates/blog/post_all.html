@@ -26,8 +26,8 @@
         <a href="?page={{ page_obj.next_page_number }}">NextPage</a>
         {% endif %}
     </span>
-
 </div>
+{% include "pagination.html" %}
 {% if user.is_active %}
 <div class="text-right mr-3">
     <a href="{%url 'blog:add' %}" class="btn btn-primary btn-sm">

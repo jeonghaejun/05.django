@@ -14,10 +14,22 @@
     </a>
     {% endif %}
 </p>
-<div>{{ object.modify_dt|date:"j F Y" }}</div>
+<div>{{ object.modify_dt|date:"Y년 m월 d일" }}</div>
 <br>
+<div class="text-left my-3">
+    {% for file in post.files.all %}
+    <a href="{%url 'blog:download' file.id%}" class="ml-4">
+    <i class="fas fa-download"></i>
+    {{file.filename}} ({{file.size | filesizeformat}}) </a>
+    {% endfor %}
+</div>
 <p>작성자 : {{ object.owner.username }} </p>
 <br>
+<div>
+    <p>Contents</p>
+    {{post.update_counter}}
+    {{post.post_contents}}
+</div>
 <div>
     {{ object.content|safe }}
 </div>

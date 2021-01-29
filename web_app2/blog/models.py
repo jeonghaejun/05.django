@@ -20,6 +20,7 @@ class Post(models.Model):
     tags = TaggableManager(blank=True)
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, verbose_name='OWNER', blank=True, null=True)
+    post_hit=models.PositiveIntegerField(default=0)
 
     class Meta:
 
@@ -44,6 +45,11 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title, allow_unicode=True)
         super().save(*args, **kwargs)
+
+    @property
+    def update_counter(self):
+        self.post_hit=self.post_hit+1
+        self.save()
 
 
 class PostAttachFile(models.Model):

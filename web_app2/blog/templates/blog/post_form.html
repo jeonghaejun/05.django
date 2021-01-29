@@ -44,6 +44,17 @@
     </div>
 
     <div class="form-group row">
+        <label for="files" class="col-form-label col-sm-2 ml-3 font-weight-bold">삭제할 파일 :</label>
+        <div class="col-sm-8">
+            {% for file in post.files.all %}
+            <input type="checkbox" name="delete_files" value="{{file.id}}">
+            {{file.filename}}({{file.size | filesizeformat}}\)
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="form-group row">
         {{ form.content|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
         <div class="col-sm-8">
             {{ form.content|add_class:"form-control" }}

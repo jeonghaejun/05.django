@@ -30,4 +30,6 @@ urlpatterns = [
      path('<int:pk>/update/', PostUpdateView.as_view(), name="update"),
      # Example: /blog/99/delete/
      path('<int:pk>/delete/', PostDeleteView.as_view(), name="delete"),
+
+     path('download/<int:id>', download, name="download"),
      ]

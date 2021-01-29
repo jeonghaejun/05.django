@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'bookmark.apps.BookmarkConfig',
     'blog.apps.BlogConfig',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -142,3 +143,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGOUT_REDIRECT_URL = '/' # 로그 아웃시 리다이렉트할 URL
 LOGIN_REDIRECT_URL = '/' # 로그인 성공시 리다이렉트할 URL
+
+# AUTH_USER_MODEL = 'users.MyUser'
+# USERNAME_FIELD = 'email'
+# REQUIRED_FIELDS = ['name']
