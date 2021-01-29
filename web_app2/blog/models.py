@@ -48,7 +48,7 @@ class Post(models.Model):
 
     @property
     def update_counter(self):
-        # if User != Post.owner:  시발이거 로그인아이디 != 작성자
+        if User.id != Post.owner_id:
             self.post_hit=self.post_hit+1
             self.save()
 
