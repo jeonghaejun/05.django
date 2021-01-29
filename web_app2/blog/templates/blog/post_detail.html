@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}post_detail.html{% endblock %}
 {% block content %}
+{{post.update_counter}}
+{{post.post_contents}}
 <h2>{{ object.title }}</h2>
 <p>
     {% if object.get_next %}
@@ -24,12 +26,8 @@
     {% endfor %}
 </div>
 <p>작성자 : {{ object.owner.username }} </p>
+<p>조회수 : {{post.post_hit}}</p>
 <br>
-<div>
-    <p>Contents</p>
-    {{post.update_counter}}
-    {{post.post_contents}}
-</div>
 <div>
     {{ object.content|safe }}
 </div>

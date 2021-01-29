@@ -48,8 +48,9 @@ class Post(models.Model):
 
     @property
     def update_counter(self):
-        self.post_hit=self.post_hit+1
-        self.save()
+        # if User != Post.owner:  시발이거 로그인아이디 != 작성자
+            self.post_hit=self.post_hit+1
+            self.save()
 
 
 class PostAttachFile(models.Model):
@@ -64,3 +65,4 @@ class PostAttachFile(models.Model):
 
     def __str__(self):
         return self.filename
+
