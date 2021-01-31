@@ -48,9 +48,8 @@ class Post(models.Model):
 
     @property
     def update_counter(self):
-        if User.id != Post.owner_id:
-            self.post_hit=self.post_hit+1
-            self.save()
+        self.post_hit=self.post_hit+1
+        self.save()
 
 
 class PostAttachFile(models.Model):

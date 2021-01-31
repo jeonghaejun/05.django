@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% block title %}post_detail.html{% endblock %}
 {% block content %}
+{% if user != object.owner %}
 {{post.update_counter}}
-{{post.post_contents}}
+{% endif %}
 <h2>{{ object.title }}</h2>
 <p>
     {% if object.get_next %}
